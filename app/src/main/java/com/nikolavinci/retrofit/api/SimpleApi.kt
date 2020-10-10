@@ -2,16 +2,14 @@ package com.nikolavinci.retrofit.api
 
 import com.nikolavinci.retrofit.model.Post
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
-import retrofit2.http.QueryMap
+import retrofit2.http.*
 
 interface SimpleApi {
 
+
     // Checking a single post on the Base URL
     @GET("posts/1")
-    suspend fun getPost(): Response<Post>
+    suspend fun getPost(@Header("Auth") auth: String): Response<Post>
 
     // Getting Posts from the URL Dynamically
     @GET("posts/{postNumber}")
@@ -32,5 +30,20 @@ interface SimpleApi {
         @Query("userId") userId: Int,
         @QueryMap options: Map<String, String>
     ): Response<List<Post>>
+
+    @POST("posts")
+    suspend fun pushPost(
+        @Body post: Post
+    ): Response<Post>
+
+    @FormUrlEncoded
+    @POST("posts")
+    suspend fun pushPost2(
+        @Field("userId") userId: Int,
+        @Field("id") id: Int,
+        @Field("title") title: String,
+        @Field("body") body: String
+    ): Response<Post>
+
 
 }

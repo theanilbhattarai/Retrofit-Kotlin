@@ -7,8 +7,8 @@ import retrofit2.Retrofit
 
 class Repository {
 
-    suspend fun getPost(): Response<Post> {
-        return RetrofitInstance.api.getPost()
+    suspend fun getPost(auth: String): Response<Post> {
+        return RetrofitInstance.api.getPost(auth)
     }
 
     suspend fun getPost2(number: Int): Response<Post> {
@@ -23,5 +23,12 @@ class Repository {
         return RetrofitInstance.api.getCustomPosts2(userId, options)
     }
 
+    suspend fun pushPost(post: Post): Response<Post> {
+        return RetrofitInstance.api.pushPost(post)
+    }
+
+    suspend fun pushPost2(userId: Int, id: Int, title: String, body: String): Response<Post> {
+        return RetrofitInstance.api.pushPost2(userId, id, title, body)
+    }
 
 }
