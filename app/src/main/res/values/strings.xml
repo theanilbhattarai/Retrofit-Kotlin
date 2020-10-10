@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Retrofit</string>
+    <string name="enter_post_number">Enter Post Number</string>
 </resources>
