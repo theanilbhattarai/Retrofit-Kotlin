@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Retrofit</string>
     <string name="enter_post_number">Enter Post Number</string>
+    <string name="title">Title</string>
+    <string name="user_id">User ID</string>
+    <string name="content">Content</string>
+    <string name="id">ID</string>
 </resources>
