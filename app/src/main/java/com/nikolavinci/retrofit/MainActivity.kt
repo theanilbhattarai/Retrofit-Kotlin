@@ -20,18 +20,30 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
-        button.setOnClickListener{
-            val myNumber = editTextNumber.text.toString()
-            viewModel.getPost2(Integer.parseInt(myNumber))
-            viewModel.myResponse2.observe(this, Observer
-            { response ->
-                if (response.isSuccessful) {
-                    textView.text = response.body().toString()
-                }else {
-                    textView.text = response.code().toString()
-                }
-            })
+        val options: HashMap<String, String> = HashMap()
+        options["_sort"] = "id"
+        options["_order"] = "desc"
 
+        button.setOnClickListener {
+            val myNumber = editTextNumber.text.toString()
+            viewModel.getCustomPosts2(Integer.parseInt(myNumber), options)
+
+            viewModel.myCustomPosts2.observe(
+                this, Observer
+                { response ->
+                    if (response.isSuccessful) {
+                        textView.text = response.body().toString()
+                        response.body()?.forEach {
+                            Log.d("Response ", it.userId.toString())
+                            Log.d("Response ", it.id.toString())
+                            Log.d("Response ", it.title)
+                            Log.d("Response ", it.body)
+                            Log.d("Response ", "----------")
+                        }
+                    } else {
+                        textView.text = response.code().toString()
+                    }
+                })
         }
     }
 }
